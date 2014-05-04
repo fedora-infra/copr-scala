@@ -35,18 +35,21 @@ trait ResponseInstances {
 object Copr extends ResponseInstances {
   private def base64(s: String) = {
     val letters = ('A' to 'Z') ++ ('a' to 'z') ++ ('0' to '9') ++ Vector('+', '/')
-    s.getBytes.map(_.toInt)
-      .map(Integer.toBinaryString _ andThen (b => "0" * (8 - b.length) + b))
+    def pickLetter(b: String) = {
+      val x = b.size % 3
+      if (x != 0) {
+        letters(Integer.parseInt(b + ("00" * x), 2)) + ("=" * x)
+      } else {
+        letters(Integer.parseInt(b, 2))
+      }
+    }
+
+    s.getBytes
+      .map(((_: Byte).toInt) andThen Integer.toBinaryString _ andThen (b => "0" * (8 - b.length) + b))
       .mkString
       .grouped(6)
-      .map { b =>
-        val x = b.size % 3
-        if (x != 0) {
-          letters(Integer.parseInt(b + ("00" * x), 2)) + ("=" * x)
-        } else {
-          letters(Integer.parseInt(b, 2))
-        }
-    }.mkString
+      .map(pickLetter)
+      .mkString
   }
 
   def apiPostIO(config: CoprConfig, path: String, json: String): IO[InputStream] = IO {

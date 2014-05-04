@@ -22,10 +22,13 @@ class CoprTests extends FunSuite {
     }
   }
 
+  def config: IO[CoprConfig] =
+    auth.map(a => CoprConfig("http://copr.fedoraproject.org/api/coprs", a))
+
   test("Can get a list of my coprs") {
     val r: IO[String \/ Coprs] = for {
-      authOpt <- auth
-      resp <- coprs(CoprConfig("http://copr.fedoraproject.org/api/coprs", authOpt), "codeblock")
+      c <- config
+      resp <- coprs(c, "codeblock")
     } yield resp
 
     r.map { rr =>
@@ -33,6 +36,23 @@ class CoprTests extends FunSuite {
         case \/-(coprs) => {
           assertResult("ok", ".output")(coprs.output)
           assertResult(Some(true), "contains watchman")(coprs.repos.map(_.map(_.name).contains("watchman")))
+        }
+        case -\/(err) => println(err)
+      }
+    }.unsafePerformIO
+  }
+
+  test("Can get detail about one of my coprs") {
+    val r: IO[String \/ CoprDetail] = for {
+      c <- config
+      resp <- coprDetail(c, "codeblock", "evalso")
+    } yield resp
+
+    r.map { rr =>
+      rr match {
+        case \/-(copr) => {
+          assertResult("ok", ".output")(copr.output)
+          assertResult(Some("evalso"), ".detail.name")(copr.detail.map(_.name))
         }
         case -\/(err) => println(err)
       }
