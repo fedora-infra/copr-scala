@@ -5,7 +5,8 @@ import java.io.{ DataOutputStream, InputStream }
 import java.net.{ HttpURLConnection, URL, URLEncoder }
 import scala.io.{ Codec, Source }
 import scalaz._, Scalaz._
-import scalaz.effect._
+import scalaz.concurrent.Task
+import scalaz.concurrent.Task._
 
 case class CoprConfig(baseurl: String, authentication: Option[(String, String)])
 
@@ -52,7 +53,7 @@ object Copr extends ResponseInstances {
       .mkString
   }
 
-  def apiPostIO(config: CoprConfig, path: String, json: String): IO[InputStream] = IO {
+  def apiPostIO(config: CoprConfig, path: String, json: String): Task[InputStream] = Task {
     val connection: HttpURLConnection =
       new URL(config.baseurl + path).openConnection.asInstanceOf[HttpURLConnection]
     connection.setRequestMethod("POST")
@@ -66,7 +67,7 @@ object Copr extends ResponseInstances {
     connection.getInputStream
   }
 
-  def apiGetIO(config: CoprConfig, path: String): IO[InputStream] = IO {
+  def apiGetIO(config: CoprConfig, path: String): Task[InputStream] = Task {
     val connection: HttpURLConnection =
       new URL(config.baseurl + path).openConnection.asInstanceOf[HttpURLConnection]
     connection.setRequestMethod("GET")
@@ -77,11 +78,11 @@ object Copr extends ResponseInstances {
     connection.getInputStream
   }
 
-  def coprs(config: CoprConfig, username: String): IO[String \/ Coprs] =
+  def coprs(config: CoprConfig, username: String): Task[String \/ Coprs] =
     apiGetIO(config, s"/${username}/")
       .map(i => Source.fromInputStream(i)(Codec.UTF8).mkString.decodeEither[Coprs])
 
-  def coprDetail(config: CoprConfig, username: String, copr: String): IO[String \/ CoprDetail] =
+  def coprDetail(config: CoprConfig, username: String, copr: String): Task[String \/ CoprDetail] =
     apiGetIO(config, s"/${username}/${copr}/detail")
       .map(i => Source.fromInputStream(i)(Codec.UTF8).mkString.decodeEither[CoprDetail])
 }

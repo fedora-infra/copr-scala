@@ -6,12 +6,13 @@ import argonaut._, Argonaut._
 import me.elrod.copr._, Copr._
 import io.Source
 import scalaz._, Scalaz._
-import scalaz.effect._
+import scalaz.concurrent.Task
+import scalaz.concurrent.Task._
 
 class CoprTests extends FunSuite {
 
   // Holy crap this is terrible.
-  val auth: IO[Option[(String, String)]] = IO {
+  val auth: Task[Option[(String, String)]] = Task {
     Option(System.getenv("USER")) map { u =>
       val List(login, token) =
         scala.io.Source.fromFile(s"/home/${u}/.config/copr")
@@ -22,11 +23,11 @@ class CoprTests extends FunSuite {
     }
   }
 
-  def config: IO[CoprConfig] =
+  def config: Task[CoprConfig] =
     auth.map(a => CoprConfig("http://copr.fedoraproject.org/api/coprs", a))
 
   test("Can get a list of my coprs") {
-    val r: IO[String \/ Coprs] = for {
+    val r: Task[String \/ Coprs] = for {
       c <- config
       resp <- coprs(c, "codeblock")
     } yield resp
@@ -39,11 +40,11 @@ class CoprTests extends FunSuite {
         }
         case -\/(err) => println(err)
       }
-    }.unsafePerformIO
+    }.run
   }
 
   test("Can get detail about one of my coprs") {
-    val r: IO[String \/ CoprDetail] = for {
+    val r: Task[String \/ CoprDetail] = for {
       c <- config
       resp <- coprDetail(c, "codeblock", "evalso")
     } yield resp
@@ -56,6 +57,6 @@ class CoprTests extends FunSuite {
         }
         case -\/(err) => println(err)
       }
-    }.unsafePerformIO
+    }.run
   }
 }
