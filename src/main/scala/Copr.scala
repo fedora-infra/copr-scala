@@ -34,19 +34,18 @@ trait ResponseInstances {
 }
 
 object Copr extends ResponseInstances {
-  private def base64(s: String) = {
+  private def base64(s: String): String = {
     val letters = ('A' to 'Z') ++ ('a' to 'z') ++ ('0' to '9') ++ Vector('+', '/')
     def pickLetter(b: String) = {
-      val x = b.size % 3
-      if (x != 0) {
-        letters(Integer.parseInt(b + ("00" * x), 2)) + ("=" * x)
-      } else {
-        letters(Integer.parseInt(b, 2))
+      (b.size % 3) match {
+        case 0 => letters(Integer.parseInt(b, 2))
+        case x => letters(Integer.parseInt(b + ("00" * x), 2)) + ("=" * x)
       }
     }
 
-    s.getBytes
-      .map(((_: Byte).toInt) andThen Integer.toBinaryString _ andThen (b => "0" * (8 - b.length) + b))
+    (s.getBytes.toList ∘ (((_: Byte).toInt) >>>
+      Integer.toBinaryString _ >>>
+        (b => "0" * (8 - b.length) + b)))
       .mkString
       .grouped(6)
       .map(pickLetter)
