@@ -35,7 +35,7 @@ trait ResponseInstances {
 
 object Copr extends ResponseInstances {
   private def base64(s: String): String = {
-    val letters = ('A' to 'Z') ++ ('a' to 'z') ++ ('0' to '9') ++ Vector('+', '/')
+    val letters = ('A' to 'Z').toList |+| ('a' to 'z').toList |+| ('0' to '9').toList |+| List('+', '/')
     def pickLetter(b: String) = {
       (b.size % 3) match {
         case 0 => letters(Integer.parseInt(b, 2))
@@ -45,7 +45,7 @@ object Copr extends ResponseInstances {
 
     (s.getBytes.toList ∘ (((_: Byte).toInt) >>>
       Integer.toBinaryString _ >>>
-        (b => "0" * (8 - b.length) + b)))
+        (b => "0" * (8 - b.length) |+| b)))
       .mkString
       .grouped(6)
       .map(pickLetter)
@@ -59,7 +59,7 @@ object Copr extends ResponseInstances {
     connection.setDoOutput(true)
     connection.setRequestProperty("Content-Type", "application/json")
     config.authentication.map(a =>
-      connection.setRequestProperty("Authorization", "Basic " + base64(a._1 + ":" + a._2)))
+      connection.setRequestProperty("Authorization", "Basic " |+| base64(a._1 |+| ":" |+| a._2)))
     val os = new DataOutputStream(connection.getOutputStream)
     os.writeBytes(json)
     os.close
@@ -73,7 +73,7 @@ object Copr extends ResponseInstances {
     connection.setDoOutput(true)
     connection.setRequestProperty("Content-Type", "application/json")
     config.authentication.map(a =>
-      connection.setRequestProperty("Authorization", "Basic " + base64(a._1 + ":" + a._2)))
+      connection.setRequestProperty("Authorization", "Basic " + base64(a._1 |+| ":" |+| a._2)))
     connection.getInputStream
   }
 
