@@ -29,8 +29,8 @@ scalacOptions ++= Seq(
   "-Ywarn-value-discard"
 )
 
-libraryDependencies += "io.argonaut" %% "argonaut" % "6.0.4"
+libraryDependencies += "io.argonaut" %% "argonaut" % "6.1-M4"
 
-libraryDependencies += "org.scalaz" %% "scalaz-effect" % "7.0.6"
+libraryDependencies += "org.scalaz" %% "scalaz-effect" % "7.1.0"
 
 libraryDependencies += "org.scalatest" %% "scalatest" % "2.1.3" % "test"
