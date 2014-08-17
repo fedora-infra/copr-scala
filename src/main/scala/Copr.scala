@@ -73,7 +73,7 @@ object Copr extends ResponseInstances {
     connection.setDoOutput(true)
     connection.setRequestProperty("Content-Type", "application/json")
     config.authentication.map(a =>
-      connection.setRequestProperty("Authorization", "Basic " + base64(a._1 |+| ":" |+| a._2)))
+      connection.setRequestProperty("Authorization", "Basic " |+| base64(a._1 |+| ":" |+| a._2)))
     connection.getInputStream
   }
 
