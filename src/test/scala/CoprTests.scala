@@ -29,7 +29,7 @@ class CoprTests extends FunSuite {
   test("Can get a list of my coprs") {
     val r: Task[String \/ Coprs] = for {
       c <- config
-      resp <- coprs(c, "codeblock")
+      resp <- coprs(c)("codeblock")
     } yield resp
 
     r.map { rr =>
@@ -46,7 +46,7 @@ class CoprTests extends FunSuite {
   test("Can get detail about one of my coprs") {
     val r: Task[String \/ CoprDetail] = for {
       c <- config
-      resp <- coprDetail(c, "codeblock", "evalso")
+      resp <- coprDetail(c)("codeblock", "evalso")
     } yield resp
 
     r.map { rr =>

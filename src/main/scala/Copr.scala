@@ -95,11 +95,11 @@ object Copr extends ResponseInstances {
     connection.getInputStream
   }
 
-  def coprs(config: CoprConfig, username: String): Task[String \/ Coprs] =
+  def coprs(config: CoprConfig)(username: String): Task[String \/ Coprs] =
     apiGetIO(config, s"/${username}/")
       .map(i => Source.fromInputStream(i)(Codec.UTF8).mkString.decodeEither[Coprs])
 
-  def coprDetail(config: CoprConfig, username: String, copr: String): Task[String \/ CoprDetail] =
+  def coprDetail(config: CoprConfig)(username: String, copr: String): Task[String \/ CoprDetail] =
     apiGetIO(config, s"/${username}/${copr}/detail")
       .map(i => Source.fromInputStream(i)(Codec.UTF8).mkString.decodeEither[CoprDetail])
 
