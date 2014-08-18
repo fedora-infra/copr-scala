@@ -24,7 +24,7 @@ class CoprTests extends FunSuite {
   }
 
   def config: Task[CoprConfig] =
-    auth.map(a => CoprConfig("http://copr.fedoraproject.org/api/coprs", a))
+    auth.map(a => CoprConfig("https://copr.fedoraproject.org/api/coprs", a))
 
   test("Can get a list of my coprs") {
     val r: Task[String \/ Coprs] = for {
@@ -54,6 +54,24 @@ class CoprTests extends FunSuite {
         case \/-(copr) => {
           assertResult("ok", ".output")(copr.output)
           assertResult(Some("evalso"), ".detail.name")(copr.detail.map(_.name))
+        }
+        case -\/(err) => println(err)
+      }
+    }.run
+  }
+
+  test("Can get detail about one of my builds") {
+    val r: Task[String \/ BuildDetail] = for {
+      c <- config
+      resp <- buildDetail(c)(27256)
+    } yield resp
+
+    r.map { rr =>
+      rr match {
+        case \/-(build) => {
+          assertResult("ok", ".output")(build.output)
+          assertResult(Some("succeeded"), "epel-7-x86_64 chroot")(build.chroots.get("epel-7-x86_64"))
+          assertResult("codeblock", ".submittedBy")(build.submittedBy)
         }
         case -\/(err) => println(err)
       }
