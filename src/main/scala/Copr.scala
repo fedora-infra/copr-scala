@@ -3,6 +3,7 @@ package me.elrod.copr
 import argonaut._, Argonaut._
 import java.io.{ DataOutputStream, InputStream }
 import java.net.{ HttpURLConnection, URL, URLEncoder }
+import monocle.Macro._
 import scala.io.{ Codec, Source }
 import scalaz._, Scalaz._
 import scalaz.concurrent.Task
@@ -18,9 +19,31 @@ case class Repo(
   description: String,
   lastModified: Option[Long])
 
+object Repo {
+   val yumRepos        = mkLens[Repo, Map[String, String]]("yumRepos")
+   val additionalRepos = mkLens[Repo, String]("additionalRepos")
+   val instructions    = mkLens[Repo, String]("instructions")
+   val name            = mkLens[Repo, String]("name")
+   val description     = mkLens[Repo, String]("description")
+   val lastModified    = mkLens[Repo, Option[Long]]("lastModified")
+ }
+
 sealed trait Response
 case class Coprs(output: String, repos: Option[List[Repo]], error: Option[String]) extends Response
+
+object Coprs {
+  val output = mkLens[Coprs, String]("output")
+  val repos  = mkLens[Coprs, Option[List[Repo]]]("repos")
+  val error  = mkLens[Coprs, Option[String]]("error")
+}
+
 case class CoprDetail(output: String, detail: Option[Repo]) extends Response
+
+object CoprDetail {
+  val output = mkLens[CoprDetail, String]("output")
+  val detail = mkLens[CoprDetail, Option[Repo]]("detail")
+}
+
 case class BuildDetail(
   status: String, /* TODO: sum type? */
   project: String,
@@ -36,6 +59,22 @@ case class BuildDetail(
   submittedBy: String,
   output: String /* TODO: sum type? */
 ) extends Response
+
+object BuildDetail {
+  val status      = mkLens[BuildDetail, String]("status")
+  val project     = mkLens[BuildDetail, String]("project")
+  val owner       = mkLens[BuildDetail, String]("owner")
+  val results     = mkLens[BuildDetail, String]("results")
+  val builtPkgs   = mkLens[BuildDetail, List[String]]("builtPkgs")
+  val srcVersion  = mkLens[BuildDetail, String]("srcVersion")
+  val chroots     = mkLens[BuildDetail, Map[String, String]]("chroots")
+  val submittedOn = mkLens[BuildDetail, Long]("submittedOn")
+  val startedOn   = mkLens[BuildDetail, Long]("startedOn")
+  val endedOn     = mkLens[BuildDetail, Long]("endedOn")
+  val srcPkg      = mkLens[BuildDetail, String]("srcPkg")
+  val submittedBy = mkLens[BuildDetail, String]("submittedBy")
+  val output      = mkLens[BuildDetail, String]("output")
+}
 
 trait ResponseInstances {
   implicit def RepoCodecJson: CodecJson[Repo] =

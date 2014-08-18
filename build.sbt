@@ -6,6 +6,8 @@ scalaVersion := "2.10.4"
 
 resolvers += Resolver.sonatypeRepo("releases")
 
+resolvers += Resolver.sonatypeRepo("snapshots")
+
 //addCompilerPlugin("org.brianmckenna" %% "wartremover" % "0.8")
 
 // TODO: Figure out a way to remove cast to HTTPUrlConnection that causes this to error...
@@ -34,3 +36,11 @@ libraryDependencies += "io.argonaut" %% "argonaut" % "6.1-M4"
 libraryDependencies += "org.scalaz" %% "scalaz-concurrent" % "7.1.0"
 
 libraryDependencies += "org.scalatest" %% "scalatest" % "2.1.3" % "test"
+
+// Lens!
+libraryDependencies ++= Seq(
+  "com.github.julien-truffaut"  %%  "monocle-core"    % "0.5.1-SNAPSHOT",
+  "com.github.julien-truffaut"  %%  "monocle-generic" % "0.5.1-SNAPSHOT",
+  "com.github.julien-truffaut"  %%  "monocle-macro"   % "0.5.1-SNAPSHOT",
+  "com.github.julien-truffaut"  %%  "monocle-law"     % "0.5.1-SNAPSHOT" % "test"
+)
