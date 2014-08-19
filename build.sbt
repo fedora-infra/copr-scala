@@ -1,6 +1,12 @@
-name := "copr"
+name := "coprscala"
 
-organization := "me.elrod"
+organization := "org.fedoraproject"
+
+version := "0.0.1"
+
+publishTo := Some(Resolver.file("file", new File( "releases" )) )
+
+crossPaths := false
 
 scalaVersion := "2.10.4"
 

@@ -1,4 +1,4 @@
-package org.fedoraproject.copr
+package org.fedoraproject.coprscala
 
 import argonaut._, Argonaut._
 import java.io.{ DataOutputStream, InputStream }

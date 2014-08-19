@@ -1,4 +1,4 @@
-package org.fedoraproject.copr.test
+package org.fedoraproject.coprscala.test
 
 import org.scalatest.FunSuite
 
