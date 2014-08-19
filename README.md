@@ -15,7 +15,6 @@ It makes heavy use of the Argonaut library and scalaz.
 resolvers += "relrod @ FedoraPeople" at "http://codeblock.fedorapeople.org/maven/"
 
 libraryDependencies += "org.fedoraproject" %% "coprscala" % "0.0.1"
-
 ```
 
 # License
