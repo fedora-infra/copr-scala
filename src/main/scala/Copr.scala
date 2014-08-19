@@ -1,4 +1,4 @@
-package me.elrod.copr
+package org.fedoraproject.copr
 
 import argonaut._, Argonaut._
 import java.io.{ DataOutputStream, InputStream }

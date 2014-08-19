@@ -1,4 +1,4 @@
-package me.elrod.copr.test
+package org.fedoraproject.copr.test
 
 import org.scalatest.FunSuite
 
