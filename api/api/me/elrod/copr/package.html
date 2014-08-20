@@ -1,0 +1,251 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+        <head>
+          <title>copr - me.elrod.copr</title>
+          <meta name="description" content="copr - me.elrod.copr" />
+          <meta name="keywords" content="copr me.elrod.copr" />
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+          
+      <link href="../../../lib/template.css" media="screen" type="text/css" rel="stylesheet" />
+      <link href="../../../lib/diagrams.css" media="screen" type="text/css" rel="stylesheet" id="diagrams-css" />
+      <script type="text/javascript">
+         if(top === self) {
+            var url = '../../../index.html';
+            var hash = 'me.elrod.copr.package';
+            var anchor = window.location.hash;
+            var anchor_opt = '';
+            if (anchor.length >= 1)
+              anchor_opt = '@' + anchor.substring(1);
+            window.location.href = url + '#' + hash + anchor_opt;
+         }
+   	  </script>
+    
+        </head>
+        <body class="value">
+      <div id="definition">
+        <img src="../../../lib/package_big.png" />
+        <p id="owner"><a href="../../package.html" class="extype" name="me">me</a>.<a href="../package.html" class="extype" name="me.elrod">elrod</a></p>
+        <h1>copr</h1>
+      </div>
+
+      <h4 id="signature" class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <span class="name">copr</span>
+      </span>
+      </h4>
+      
+          <div id="comment" class="fullcommenttop"></div>
+        
+
+      <div id="mbrsel">
+        <div id="textfilter"><span class="pre"></span><span class="input"><input id="mbrsel-input" type="text" accesskey="/" /></span><span class="post"></span></div>
+        
+        
+        <div id="visbl">
+            <span class="filtertype">Visibility</span>
+            <ol><li class="public in"><span>Public</span></li><li class="all out"><span>All</span></li></ol>
+          </div>
+      </div>
+
+      <div id="template">
+        <div id="allMembers">
+        
+
+        <div id="types" class="types members">
+              <h3>Type Members</h3>
+              <ol><li name="me.elrod.copr.BuildDetail" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="BuildDetailextendsResponsewithProductwithSerializable"></a>
+      <a id="BuildDetail:BuildDetail"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="BuildDetail.html"><span class="name">BuildDetail</span></a><span class="params">(<span name="status">status: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="project">project: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="owner">owner: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="results">results: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="builtPkgs">builtPkgs: <span class="extype" name="scala.List">List</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>, <span name="srcVersion">srcVersion: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="chroots">chroots: <span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Predef.String">String</span>]</span>, <span name="submittedOn">submittedOn: <span class="extype" name="scala.Long">Long</span></span>, <span name="startedOn">startedOn: <span class="extype" name="scala.Long">Long</span></span>, <span name="endedOn">endedOn: <span class="extype" name="scala.Long">Long</span></span>, <span name="srcPkg">srcPkg: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="submittedBy">submittedBy: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="output">output: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <a href="Response.html" class="extype" name="me.elrod.copr.Response">Response</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="me.elrod.copr.CoprConfig" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="CoprConfigextendsProductwithSerializable"></a>
+      <a id="CoprConfig:CoprConfig"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="CoprConfig.html"><span class="name">CoprConfig</span></a><span class="params">(<span name="baseurl">baseurl: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="authentication">authentication: <span class="extype" name="scala.Option">Option</span>[(<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Predef.String">String</span>)]</span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="me.elrod.copr.CoprDetail" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="CoprDetailextendsResponsewithProductwithSerializable"></a>
+      <a id="CoprDetail:CoprDetail"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="CoprDetail.html"><span class="name">CoprDetail</span></a><span class="params">(<span name="output">output: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="detail">detail: <span class="extype" name="scala.Option">Option</span>[<a href="Repo.html" class="extype" name="me.elrod.copr.Repo">Repo</a>]</span>)</span><span class="result"> extends <a href="Response.html" class="extype" name="me.elrod.copr.Response">Response</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="me.elrod.copr.Coprs" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="CoprsextendsResponsewithProductwithSerializable"></a>
+      <a id="Coprs:Coprs"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="Coprs.html"><span class="name">Coprs</span></a><span class="params">(<span name="output">output: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="repos">repos: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.List">List</span>[<a href="Repo.html" class="extype" name="me.elrod.copr.Repo">Repo</a>]]</span>, <span name="error">error: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>)</span><span class="result"> extends <a href="Response.html" class="extype" name="me.elrod.copr.Response">Response</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="me.elrod.copr.Repo" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="RepoextendsProductwithSerializable"></a>
+      <a id="Repo:Repo"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="Repo.html"><span class="name">Repo</span></a><span class="params">(<span name="yumRepos">yumRepos: <span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Predef.String">String</span>]</span>, <span name="additionalRepos">additionalRepos: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="instructions">instructions: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="name">name: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="description">description: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="lastModified">lastModified: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Long">Long</span>]</span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="me.elrod.copr.Response" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="ResponseextendsAnyRef"></a>
+      <a id="Response:Response"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">sealed </span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="Response.html"><span class="name">Response</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="me.elrod.copr.ResponseInstances" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="ResponseInstancesextendsAnyRef"></a>
+      <a id="ResponseInstances:ResponseInstances"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="ResponseInstances.html"><span class="name">ResponseInstances</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      </h4>
+      
+    </li></ol>
+            </div>
+
+        
+
+        <div id="values" class="values members">
+              <h3>Value Members</h3>
+              <ol><li name="me.elrod.copr.BuildDetail" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="BuildDetail"></a>
+      <a id="BuildDetail:BuildDetail"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="BuildDetail$.html"><span class="name">BuildDetail</span></a><span class="result"> extends <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="me.elrod.copr.Copr" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="Copr"></a>
+      <a id="Copr:Copr"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="Copr$.html"><span class="name">Copr</span></a><span class="result"> extends <a href="ResponseInstances.html" class="extype" name="me.elrod.copr.ResponseInstances">ResponseInstances</a></span>
+      </span>
+      </h4>
+      
+    </li><li name="me.elrod.copr.CoprDetail" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="CoprDetail"></a>
+      <a id="CoprDetail:CoprDetail"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="CoprDetail$.html"><span class="name">CoprDetail</span></a><span class="result"> extends <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="me.elrod.copr.Coprs" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="Coprs"></a>
+      <a id="Coprs:Coprs"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="Coprs$.html"><span class="name">Coprs</span></a><span class="result"> extends <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="me.elrod.copr.Repo" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="Repo"></a>
+      <a id="Repo:Repo"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="Repo$.html"><span class="name">Repo</span></a><span class="result"> extends <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      
+    </li></ol>
+            </div>
+
+        
+
+        
+        </div>
+
+        <div id="inheritedMembers">
+        
+        
+        </div>
+
+        <div id="groupedMembers">
+        <div class="group" name="Ungrouped">
+              <h3>Ungrouped</h3>
+              
+            </div>
+        </div>
+
+      </div>
+
+      <div id="tooltip"></div>
+
+      <div id="footer">  </div>
+      <script defer="defer" type="text/javascript" id="jquery-js" src="../../../lib/jquery.js"></script><script defer="defer" type="text/javascript" id="jquery-ui-js" src="../../../lib/jquery-ui.js"></script><script defer="defer" type="text/javascript" id="tools-tooltip-js" src="../../../lib/tools.tooltip.js"></script><script defer="defer" type="text/javascript" id="template-js" src="../../../lib/template.js"></script>
+    </body>
+      </html>
