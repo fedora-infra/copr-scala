@@ -2,13 +2,13 @@ name := "coprscala"
 
 organization := "org.fedoraproject"
 
-version := "0.0.1"
+version := "1.0.0"
 
 publishTo := Some(Resolver.file("file", new File( "releases" )) )
 
 crossPaths := false
 
-scalaVersion := "2.10.4"
+scalaVersion := "2.11.2"
 
 resolvers += Resolver.sonatypeRepo("releases")
 
@@ -45,8 +45,8 @@ libraryDependencies += "org.scalatest" %% "scalatest" % "2.1.3" % "test"
 
 // Lens!
 libraryDependencies ++= Seq(
-  "com.github.julien-truffaut"  %%  "monocle-core"    % "0.5.1-SNAPSHOT",
-  "com.github.julien-truffaut"  %%  "monocle-generic" % "0.5.1-SNAPSHOT",
-  "com.github.julien-truffaut"  %%  "monocle-macro"   % "0.5.1-SNAPSHOT",
-  "com.github.julien-truffaut"  %%  "monocle-law"     % "0.5.1-SNAPSHOT" % "test"
+  "com.github.julien-truffaut" %%  "monocle-core"    % "1.0.0-SNAPSHOT",
+  "com.github.julien-truffaut" %%  "monocle-generic" % "1.0.0-SNAPSHOT",
+  "com.github.julien-truffaut" %%  "monocle-macro"   % "1.0.0-SNAPSHOT",
+  "com.github.julien-truffaut" %%  "monocle-law"     % "1.0.0-SNAPSHOT" % "test"
 )
