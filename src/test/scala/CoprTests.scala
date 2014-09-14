@@ -92,9 +92,9 @@ class CoprTests extends FunSuite {
     r.map { rr =>
       rr match {
         case \/-(build) => {
-          assertResult("ok", ".output")(build |-> output get)
-          assertResult(Some("succeeded"), "epel-7-x86_64 chroot")(build |-> chroots |-> at("epel-7-x86_64") get)
-          assertResult("codeblock", ".submittedBy")(build |-> submittedBy get)
+          assertResult("ok", ".output")(build applyLens output get)
+          //assertResult(Some("succeeded"), "epel-7-x86_64 chroot")(build applyLens chroots applyLens at("epel-7-x86_64") get)
+          assertResult("codeblock", ".submittedBy")(build applyLens submittedBy get)
         }
         case -\/(err) => println(err)
       }
