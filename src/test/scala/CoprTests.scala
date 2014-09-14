@@ -3,7 +3,7 @@ package org.fedoraproject.coprscala.test
 import org.scalatest.FunSuite
 
 import argonaut._, Argonaut._
-import me.elrod.copr._, Copr._
+import org.fedoraproject.coprscala._, Copr._
 import monocle.function.At._
 import monocle.std._
 import monocle.syntax._
