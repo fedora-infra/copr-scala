@@ -36,15 +36,13 @@ class CoprTests extends FunSuite {
       resp <- coprs(c)("codeblock")
     } yield resp
 
-    r.map { rr =>
-      rr match {
-        case \/-(coprs) => {
+    r.map(_.fold(
+      err => println(err),
+      coprs => {
           assertResult("ok", ".output")(coprs.output)
           assertResult(Some(true), "contains watchman")(coprs.repos.map(_.map(_.name).contains("watchman")))
-        }
-        case -\/(err) => println(err)
       }
-    }.run
+    )).run
   }
 
   test("Can get detail about one of my coprs") {
@@ -53,15 +51,13 @@ class CoprTests extends FunSuite {
       resp <- coprDetail(c)("codeblock", "evalso")
     } yield resp
 
-    r.map { rr =>
-      rr match {
-        case \/-(copr) => {
-          assertResult("ok", ".output")(copr.output)
-          assertResult(Some("evalso"), ".detail.name")(copr.detail.map(_.name))
-        }
-        case -\/(err) => println(err)
+    r.map(_.fold(
+      err => println(err),
+      copr => {
+        assertResult("ok", ".output")(copr.output)
+        assertResult(Some("evalso"), ".detail.name")(copr.detail.map(_.name))
       }
-    }.run
+    )).run
   }
 
   test("Can get detail about one of my builds") {
@@ -70,16 +66,14 @@ class CoprTests extends FunSuite {
       resp <- buildDetail(c)(1009)
     } yield resp
 
-    r.map { rr =>
-      rr match {
-        case \/-(build) => {
-          assertResult("ok", ".output")(build.output)
-          assertResult(Some("succeeded"), "fedora-20-x86_64 chroot")(build.chroots.get("fedora-20-x86_64"))
-          assertResult("codeblock", ".submittedBy")(build.submittedBy)
-        }
-        case -\/(err) => println(err)
+    r.map(_.fold(
+      err => println(err),
+      build => {
+        assertResult("ok", ".output")(build.output)
+        assertResult(Some("succeeded"), "fedora-20-x86_64 chroot")(build.chroots.get("fedora-20-x86_64"))
+        assertResult("codeblock", ".submittedBy")(build.submittedBy)
       }
-    }.run
+    )).run
   }
 
   test("Can get detail about one of my builds using lenses") {
@@ -89,16 +83,14 @@ class CoprTests extends FunSuite {
       resp <- buildDetail(c)(1009)
     } yield resp
 
-    r.map { rr =>
-      rr match {
-        case \/-(build) => {
-          assertResult("ok", ".output")(build |-> output get)
-          assertResult(Some("succeeded"), "fedora-20-x86_64 chroot")(build |-> chroots |-> at("fedora-20-x86_64") get)
-          assertResult("codeblock", ".submittedBy")(build |-> submittedBy get)
-        }
-        case -\/(err) => println(err)
+    r.map(_.fold(
+      err => println(err),
+      build => {
+        assertResult("ok", ".output")(build |-> output get)
+        assertResult(Some("succeeded"), "fedora-20-x86_64 chroot")(build |-> chroots |-> at("fedora-20-x86_64") get)
+        assertResult("codeblock", ".submittedBy")(build |-> submittedBy get)
       }
-    }.run
+    )).run
   }
 
   test("Can view (and parse) the monitor page") {
@@ -107,13 +99,10 @@ class CoprTests extends FunSuite {
       resp <- monitor(c)("codeblock", "evalso")
     } yield resp
 
-    r.map { rr =>
-      rr match {
-        case \/-(mon) => {
-          assertResult(true, "chroots contains fedora-20-x86_64")(mon.chroots.contains("fedora-20-x86_64"))
-        }
-        case -\/(err) => println(err)
-      }
-    }.run
+    r.map(_.fold(
+      err => println(err),
+      mon =>
+        assertResult(true, "chroots contains fedora-20-x86_64")(mon.chroots.contains("fedora-20-x86_64"))
+    )).run
   }
 }
