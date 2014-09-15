@@ -50,6 +50,61 @@ object BuildDetail {
   val output      = mkLens[BuildDetail, String]("output")
 }
 
+case class Monitor(
+  builds: List[MonitorBuildDetail],
+  chroots: List[String],
+  packages: List[MonitorPackage]
+) extends Response
+object Monitor {
+  val builds   = mkLens[Monitor, List[MonitorBuildDetail]]("builds")
+  val chroots  = mkLens[Monitor, List[String]]("chroots")
+  val packages = mkLens[Monitor, List[MonitorPackage]]("packages")
+}
+
+case class MonitorBuildDetail(
+  builtPackages: List[String],
+  canceled: Boolean,
+  endedOn: Long,
+  id: Long,
+  memoryReqs: Int,
+  pkgVersion: Option[String],
+  repos: String,
+  results: String,
+  srcPkg: String,
+  startedOn: Long,
+  state: String,
+  status: Int,
+  submittedOn: Long,
+  timeout: Long
+)
+object MonitorBuildDetail {
+  val builtPackages = mkLens[MonitorBuildDetail, List[String]]("builtPackages")
+  val canceled      = mkLens[MonitorBuildDetail, Boolean]("canceled")
+  val endedOn       = mkLens[MonitorBuildDetail, Long]("endedOn")
+  val id            = mkLens[MonitorBuildDetail, Long]("id")
+  val memoryReqs    = mkLens[MonitorBuildDetail, Int]("memoryReqs")
+  val pkgVersion    = mkLens[MonitorBuildDetail, Option[String]]("pkgVersion")
+  val repos         = mkLens[MonitorBuildDetail, String]("repos")
+  val results       = mkLens[MonitorBuildDetail, String]("results")
+  val srcPkg        = mkLens[MonitorBuildDetail, String]("srcPkg")
+  val startedOn     = mkLens[MonitorBuildDetail, Long]("startedOn")
+  val state         = mkLens[MonitorBuildDetail, String]("state")
+  val status        = mkLens[MonitorBuildDetail, Int]("status")
+  val submittedOn   = mkLens[MonitorBuildDetail, Long]("submittedOn")
+  val timeout       = mkLens[MonitorBuildDetail, Long]("timeout")
+}
+
+case class MonitorPackage(
+  pkgName: String,
+  pkgVersion: Option[String],
+  results: Map[String, List[Int \/ String]]
+)
+object MonitorPackage {
+  val pkgName    = mkLens[MonitorPackage, String]("pkgName")
+  val pkgVersion = mkLens[MonitorPackage, Option[String]]("pkgVersion")
+  val results    = mkLens[MonitorPackage, Map[String, List[Int \/ String]]]("results")
+}
+
 trait ResponseInstances {
   implicit def RepoCodecJson: CodecJson[Repo] =
     casecodec6(Repo.apply, Repo.unapply)("yum_repos", "additional_repos", "instructions", "name", "description", "last_modified")
@@ -62,4 +117,13 @@ trait ResponseInstances {
 
   implicit def BuildDetailCodecJson: CodecJson[BuildDetail] =
     casecodec13(BuildDetail.apply, BuildDetail.unapply)("status", "project", "owner", "results", "built_pkgs", "src_version", "chroots", "submitted_on", "started_on", "ended_on", "src_pkg", "submitted_by", "output")
+
+  implicit def MonitorCodecJson: CodecJson[Monitor] =
+    casecodec3(Monitor.apply, Monitor.unapply)("builds", "chroots", "packages")
+
+  implicit def MonitorBuildDetailCodecJson: CodecJson[MonitorBuildDetail] =
+    casecodec14(MonitorBuildDetail.apply, MonitorBuildDetail.unapply)("built_packages", "canceled", "ended_on", "id", "memory_reqs", "pkg_version", "repos", "results", "src_pkg", "started_on", "state", "status", "submitted_on", "timeout")
+
+  implicit def MonitorPackageCodecJson: CodecJson[MonitorPackage] =
+    casecodec3(MonitorPackage.apply, MonitorPackage.unapply)("pkg_name", "pkg_version", "results")
 }

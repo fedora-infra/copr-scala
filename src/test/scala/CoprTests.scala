@@ -28,7 +28,7 @@ class CoprTests extends FunSuite {
   }
 
   def config: Task[CoprConfig] =
-    auth.map(a => CoprConfig("https://copr.fedoraproject.org/api/coprs", a))
+    auth.map(a => CoprConfig("http://copr-fe-dev.cloud.fedoraproject.org/api/coprs", a))
 
   test("Can get a list of my coprs") {
     val r: Task[String \/ Coprs] = for {
@@ -67,14 +67,14 @@ class CoprTests extends FunSuite {
   test("Can get detail about one of my builds") {
     val r: Task[String \/ BuildDetail] = for {
       c <- config
-      resp <- buildDetail(c)(27256)
+      resp <- buildDetail(c)(1009)
     } yield resp
 
     r.map { rr =>
       rr match {
         case \/-(build) => {
           assertResult("ok", ".output")(build.output)
-          assertResult(Some("succeeded"), "epel-7-x86_64 chroot")(build.chroots.get("epel-7-x86_64"))
+          assertResult(Some("succeeded"), "fedora-20-x86_64 chroot")(build.chroots.get("fedora-20-x86_64"))
           assertResult("codeblock", ".submittedBy")(build.submittedBy)
         }
         case -\/(err) => println(err)
@@ -86,15 +86,31 @@ class CoprTests extends FunSuite {
     import BuildDetail._
     val r: Task[String \/ BuildDetail] = for {
       c <- config
-      resp <- buildDetail(c)(27256)
+      resp <- buildDetail(c)(1009)
     } yield resp
 
     r.map { rr =>
       rr match {
         case \/-(build) => {
           assertResult("ok", ".output")(build |-> output get)
-          assertResult(Some("succeeded"), "epel-7-x86_64 chroot")(build |-> chroots |-> at("epel-7-x86_64") get)
+          assertResult(Some("succeeded"), "fedora-20-x86_64 chroot")(build |-> chroots |-> at("fedora-20-x86_64") get)
           assertResult("codeblock", ".submittedBy")(build |-> submittedBy get)
+        }
+        case -\/(err) => println(err)
+      }
+    }.run
+  }
+
+  test("Can view (and parse) the monitor page") {
+    val r: Task[String \/ Monitor] = for {
+      c <- config
+      resp <- monitor(c)("codeblock", "evalso")
+    } yield resp
+
+    r.map { rr =>
+      rr match {
+        case \/-(mon) => {
+          assertResult(true, "chroots contains fedora-20-x86_64")(mon.chroots.contains("fedora-20-x86_64"))
         }
         case -\/(err) => println(err)
       }
