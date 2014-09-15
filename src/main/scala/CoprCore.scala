@@ -10,10 +10,11 @@ object CoprCore extends ResponseInstances {
   private def base64(s: String): String = {
     val letters = ('A' to 'Z').toList |+| ('a' to 'z').toList |+| ('0' to '9').toList |+| List('+', '/')
     def pickLetter(b: String) = {
-      (b.size % 3) match {
-        case 0 => letters(Integer.parseInt(b, 2))
-        case x => letters(Integer.parseInt(b + ("00" * x), 2)) + ("=" * x)
-      }
+      val mod = b.size % 3
+      if (mod === 0)
+        letters(Integer.parseInt(b, 2))
+      else
+        letters(Integer.parseInt(b + ("00" * mod), 2)) + ("=" * mod)
     }
 
     (s.getBytes.toList ∘ (((_: Byte).toInt) >>>
