@@ -24,8 +24,8 @@ case class BuildDetail(
   project: String,
   owner: String,
   results: String,
-  builtPkgs: List[String],
-  srcVersion: String,
+  builtPkgs: Option[List[String]],
+  srcVersion: Option[String],
   chroots: Map[String, String], /* TODO: value -> sum type? */
   submittedOn: Long, /* TODO: some date object */
   startedOn: Long, /* TODO: some date object */
@@ -39,8 +39,8 @@ object BuildDetail {
   val project     = mkLens[BuildDetail, String]("project")
   val owner       = mkLens[BuildDetail, String]("owner")
   val results     = mkLens[BuildDetail, String]("results")
-  val builtPkgs   = mkLens[BuildDetail, List[String]]("builtPkgs")
-  val srcVersion  = mkLens[BuildDetail, String]("srcVersion")
+  val builtPkgs   = mkLens[BuildDetail, Option[List[String]]]("builtPkgs")
+  val srcVersion  = mkLens[BuildDetail, Option[String]]("srcVersion")
   val chroots     = mkLens[BuildDetail, Map[String, String]]("chroots")
   val submittedOn = mkLens[BuildDetail, Long]("submittedOn")
   val startedOn   = mkLens[BuildDetail, Long]("startedOn")
