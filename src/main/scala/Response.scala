@@ -97,12 +97,12 @@ object MonitorBuildDetail {
 case class MonitorPackage(
   pkgName: String,
   pkgVersion: Option[String],
-  results: Map[String, List[Int \/ String]]
+  results: Map[String, (Long, String)]
 )
 object MonitorPackage {
   val pkgName    = mkLens[MonitorPackage, String]("pkgName")
   val pkgVersion = mkLens[MonitorPackage, Option[String]]("pkgVersion")
-  val results    = mkLens[MonitorPackage, Map[String, List[Int \/ String]]]("results")
+  val results    = mkLens[MonitorPackage, Map[String, (Long, String)]]("results")
 }
 
 trait ResponseInstances {
