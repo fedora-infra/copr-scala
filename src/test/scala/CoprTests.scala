@@ -37,7 +37,10 @@ class CoprTests extends FunSuite {
     } yield resp
 
     r.map(_.fold(
-      err => println(err),
+      err => {
+        println(err)
+        throw new Exception(err)
+      },
       coprs => {
           assertResult("ok", ".output")(coprs.output)
           assertResult(Some(true), "contains watchman")(coprs.repos.map(_.map(_.name).contains("watchman")))
@@ -52,7 +55,10 @@ class CoprTests extends FunSuite {
     } yield resp
 
     r.map(_.fold(
-      err => println(err),
+      err => {
+        println(err)
+        throw new Exception(err)
+      },
       copr => {
         assertResult("ok", ".output")(copr.output)
         assertResult(Some("evalso"), ".detail.name")(copr.detail.map(_.name))
@@ -67,7 +73,10 @@ class CoprTests extends FunSuite {
     } yield resp
 
     r.map(_.fold(
-      err => println(err),
+      err => {
+        println(err)
+        throw new Exception(err)
+      },
       build => {
         assertResult("ok", ".output")(build.output)
         assertResult(Some("succeeded"), "fedora-20-x86_64 chroot")(build.chroots.get("fedora-20-x86_64"))
@@ -84,7 +93,10 @@ class CoprTests extends FunSuite {
     } yield resp
 
     r.map(_.fold(
-      err => println(err),
+      err => {
+        println(err)
+        throw new Exception(err)
+      },
       build => {
         assertResult("ok", ".output")(build |-> output get)
         assertResult(Some("succeeded"), "fedora-20-x86_64 chroot")(build |-> chroots |-> at("fedora-20-x86_64") get)
@@ -100,7 +112,10 @@ class CoprTests extends FunSuite {
     } yield resp
 
     r.map(_.fold(
-      err => println(err),
+      err => {
+        println(err)
+        throw new Exception(err)
+      },
       mon =>
         assertResult(true, "chroots contains fedora-20-x86_64")(mon.chroots.contains("fedora-20-x86_64"))
     )).run
