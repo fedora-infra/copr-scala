@@ -28,7 +28,7 @@ class CoprTests extends FunSuite {
   }
 
   def config: Task[CoprConfig] =
-    auth.map(a => CoprConfig("http://copr-fe-dev.cloud.fedoraproject.org/api/coprs", a))
+    auth.map(a => CoprConfig("https://copr.fedoraproject.org/api/coprs", a))
 
   test("Can get a list of my coprs") {
     val r: Task[String \/ Coprs] = for {
